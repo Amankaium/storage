@@ -1,0 +1,10 @@
+{% extends 'main/main_page.html' %}
+
+{% block context %}
+  <h2>Редактировать товар "{{ good }}"</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="save">Сохранить изменения</button>
+  </form>
+{% endblock %}

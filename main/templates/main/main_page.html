@@ -1,0 +1,25 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}Склад{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+  </head>
+  <body>
+    {% block nav %}
+    <h3>Вы авторизованы как - <b>{{ request.user.username }}</b></h3>
+    <a href="{% url 'all_goods' %}">Все товары</a>
+    {% if perms.main.add_good %}
+    <a href="{% url 'add_good' %}">Добавить</a>
+    {% endif %}
+    {% endblock %}
+    <a href="{% url 'logout' %}">Выйти</a>
+    <hr>
+    {% block context %}
+    This is main page
+    {% endblock %}
+  </body>
+</html>

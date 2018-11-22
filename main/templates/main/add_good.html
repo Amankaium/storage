@@ -1,0 +1,10 @@
+{% extends 'main/main_page.html' %}
+
+{% block context %}
+  <h2>Добавление товара</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" name="save">Сохранить</button>
+  </form>
+{% endblock %}

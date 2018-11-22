@@ -1,0 +1,48 @@
+{% extends 'main/main_page.html' %}
+{% load bootstrap4 %}
+{% block context %}
+  <h2>Список товаров</h2>
+  <hr>
+  <table border=1>
+    <thead>
+      <tr>
+        <th></th>
+        <th>Товар</th>
+        <th colspan="2">Статус</th>
+        <th>Количество</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for good in goods %}
+      <tr>
+        <td>
+          {% if perms.main.delete_good %}
+          <!-- При необходимости, можно разбить наразные доступы (изменение и удаление) -->
+          <a href="{% url 'edit_good' good.id %}"><button type="button" name="edit">Изменить</button></a>
+          <a href="{% url 'delete_good' good.id %}"><button type="button" name="delete">Удалить</button></a>
+          {% endif %}
+        </td>
+        <td>{{ good.name }}</td>
+        <td>
+          {% if perms.main.add_good and good.status.name == 'Нет в наличии' %}
+          <a href="{% url 'good_is_coming' good.id %}">
+            <button type="submit" name="status">Сменить</button>
+          </a>
+          {% endif %}
+        <td>
+          {{ good.status }}
+        </td>
+        <td>{{ good.qty }}</td>
+        <td>
+          {% if perms.main.view_good %}
+          <a href="{% url 'sold' good.id %}">
+            <button type="button" name="sold">Продали</button>
+          </a>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

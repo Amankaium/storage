@@ -1,0 +1,10 @@
+{% extends 'main/main_page.html' %}
+
+{% block context %}
+  <h2>Вы действительно хотите удалить товар "{{ good }}"?</h2>
+  <form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    <button type="submit" name="yes">Да</button>
+    <button type="submit" name="no">Нет</button>
+  </form>
+{% endblock %}
