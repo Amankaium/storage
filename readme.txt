@@ -4,8 +4,10 @@
 
 На windows (python по умолчанию python3.6)
 1) Создайте пустую папку, внутри создайте виртульное окружение:
+mkdir storage
 virtualenv venv
 2) Вставьте папку с проектом (storage) рядом с venv
+git clone https://github.com/Amankaium/storage.git
 3) Активация venv
 call venv\Scripts\activate
 4) Либы (requirements)
@@ -19,8 +21,10 @@ python manage.py runserver
 
 Если на ubuntu с python (2.x) и python3, то
 1) Создайте пустую папку, внутри создайте виртульное окружение:
+mkdir storage
 virtualenv -p python3 virtualenv
 2) Вставьте папку с проектом (storage) рядом с venv
+https://github.com/Amankaium/storage.git
 3) Активация venv
 source venv/bin/activate
 4) Либы (requirements)
