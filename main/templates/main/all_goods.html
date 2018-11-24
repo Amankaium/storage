@@ -1,33 +1,35 @@
 {% extends 'main/main_page.html' %}
 {% load bootstrap4 %}
+{% block context_title %}
+  Список товаров
+{% endblock %}
 {% block context %}
-  <h2>Список товаров</h2>
-  <hr>
-  <table border=1>
+<div class="table-responsive">
+  <table class="table table-bordered table-hover table-striped">
     <thead>
       <tr>
-        <th></th>
         <th>Товар</th>
-        <th colspan="2">Статус</th>
+        <th>Управление</th>
+        <th colspan="2" class='text-center'>Статус</th>
         <th>Количество</th>
-        <th></th>
+        <th>Продажа</th>
       </tr>
     </thead>
     <tbody>
       {% for good in goods %}
       <tr>
+        <td>{{ good.name }}</td>
         <td>
           {% if perms.main.delete_good %}
           <!-- При необходимости, можно разбить наразные доступы (изменение и удаление) -->
-          <a href="{% url 'edit_good' good.id %}"><button type="button" name="edit">Изменить</button></a>
-          <a href="{% url 'delete_good' good.id %}"><button type="button" name="delete">Удалить</button></a>
+          <a href="{% url 'edit_good' good.id %}"><button class='btn btn-warning' type="button" name="edit">Изменить</button></a>
+          <a href="{% url 'delete_good' good.id %}"><button class='btn btn-danger' type="button" name="delete">Удалить</button></a>
           {% endif %}
         </td>
-        <td>{{ good.name }}</td>
         <td>
           {% if perms.main.add_good and good.status.name == 'Нет в наличии' %}
           <a href="{% url 'good_is_coming' good.id %}">
-            <button type="submit" name="status">Сменить</button>
+            <button class="btn btn-info" type="submit" name="status">Сменить</button>
           </a>
           {% endif %}
         <td>
@@ -37,7 +39,7 @@
         <td>
           {% if perms.main.view_good %}
           <a href="{% url 'sold' good.id %}">
-            <button type="button" name="sold">Продали</button>
+            <button class='btn btn-success' type="button" name="sold">Продали</button>
           </a>
           {% endif %}
         </td>
@@ -45,4 +47,5 @@
       {% endfor %}
     </tbody>
   </table>
+</div>
 {% endblock %}

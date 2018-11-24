@@ -5,21 +5,51 @@
     <meta charset="utf-8">
     <title>{% block title %}Склад{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
   </head>
   <body>
     {% block nav %}
-    <h3>Вы авторизованы как - <b>{{ request.user.username }}</b></h3>
-    <a href="{% url 'all_goods' %}">Все товары</a>
-    {% if perms.main.add_good %}
-    <a href="{% url 'add_good' %}">Добавить</a>
-    {% endif %}
+    <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <a class="navbar-brand" href="#">
+        Ваш логин - {{ request.user.username }}
+      </a>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'all_goods' %}">Все товары</a>
+        </li>
+        {% if perms.main.add_good %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'add_good' %}">Добавить</a>
+        </li>
+        {% endif %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Выйти</a>
+        </li>
+      </ul>
+    </nav>
     {% endblock %}
-    <a href="{% url 'logout' %}">Выйти</a>
-    <hr>
-    {% block context %}
-    This is main page
-    {% endblock %}
+    <br>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 offset-lg-1 col-md-10 offset-md-1 col-sm-12">
+          <div class="panel">
+            <div class="panel-heading text-center">
+              <h2>
+                {% block context_title %}
+                {% endblock %}
+              </h2>
+            </div>
+              {% block context %}
+              {% endblock %}
+            <div class="row">
+              <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-sm-12">
+                {% block thin_context %}
+                {% endblock %}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

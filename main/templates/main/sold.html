@@ -1,13 +1,20 @@
 {% extends 'main/main_page.html' %}
 
-{% block context %}
-  <h2>Продали товар "{{ good }}"</h2>
+{% load bootstrap4 %}
+
+{% block context_title %}
+  Продали товар "{{ good }}"
+{% endblock %}
+
+{% block thin_context %}
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
+    {% bootstrap_form form %}
     {% if message %}
-      {{ message }}<br>
+      <div class="alert alert-danger">
+        <strong>Ошибка! </strong><br>{{ message }}
+      </div>
     {% endif %}
-    <button type="submit" name="sold">OK</button>
+    <button class="btn btn-success" type="submit" name="sold">OK</button>
   </form>
 {% endblock %}

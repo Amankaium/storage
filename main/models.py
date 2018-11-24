@@ -2,7 +2,7 @@ from django.db import models
 
 class Good(models.Model):
     name = models.CharField(max_length=255, verbose_name='Наименование')
-    status = models.ForeignKey('Status', on_delete=None, verbose_name='Статус')
+    status = models.ForeignKey('Status', on_delete=None, verbose_name='Статус', null=True, blank=True)
     qty = models.PositiveIntegerField(default=0, verbose_name='Количество')
 
     def __str__(self):

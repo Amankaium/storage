@@ -1,3 +1,21 @@
+{% extends 'main/main_page.html' %}
+{% load bootstrap4 %}
+
+{% block nav %}
+{% endblock %}
+
+{% block context_title %}
+  Авторизация
+{% endblock %}
+
+{% block thin_context %}
+  <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {% bootstrap_form form %}
+  <button class="btn btn-dark" type="submit">Войти</button>
+  </form>
+{% endblock %}
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
   <head>
@@ -5,10 +23,6 @@
     <title></title>
   </head>
   <body>
-    <form method="POST" enctype="multipart/form-data">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit"">Войти</button>
-  </form>
+
   </body>
 </html>

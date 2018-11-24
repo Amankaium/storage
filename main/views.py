@@ -41,12 +41,15 @@ def main(request):
 def add_good(request):
     context = {}
 
-    form = GoodForm()
+    form = GoodAddForm()
 
     if request.method == "POST":
-        form = GoodForm(request.POST)
+        form = GoodAddForm(request.POST)
         if form.is_valid():
-            form.save()
+            name = form.cleaned_data["name"]
+            status, created = Status.objects.get_or_create(name='Нет в наличии')
+            good = Good(name=name, status=status)
+            good.save()
         return redirect(main)
 
     context["form"] = form
@@ -66,10 +69,12 @@ def sold(request, good_id):
         form = GoodSoldForm(request.POST)
         if form.is_valid():
             qty = form.cleaned_data["qty"]
-            if qty > good.qty or qty < 0:
+            if qty > good.qty or qty <= 0:
                 context["message"] = f"Введите число больше 0 и меньше текущего количества ({good.qty})"
             else:
                 good.qty = good.qty - qty
+                if good.qty == 0:
+                    good.status, created = Status.objects.get_or_create(name="Нет в наличии")
                 good.save()
                 return redirect(main)
     context["form"] = form

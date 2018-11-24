@@ -1,10 +1,12 @@
 {% extends 'main/main_page.html' %}
-
-{% block context %}
-  <h2>Редактировать товар "{{ good }}"</h2>
+{% load bootstrap4 %}
+{% block context_title %}
+  Изменение данных товара "{{ good }}"
+{% endblock %}
+{% block thin_context %}
   <form method="post" enctype="multipart/form-data">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit" name="save">Сохранить изменения</button>
+    {% bootstrap_form form %}
+    <button class="btn btn-warning" type="submit" name="save">Сохранить изменения</button>
   </form>
 {% endblock %}
