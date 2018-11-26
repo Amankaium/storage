@@ -1,0 +1,36 @@
+1) first docker must be installed on machine
+2) then create docker file with instuctions
+3) docker built -t storage_container . # image
+4) u can check image:
+docker images
+5) docker run -d -p 80:80 storage_container # or
+
+5.1) first create tome:
+docker -v `pwd`:/
+5.2) then try to check it:
+docker run --rm -it storage_container bash
+ls
+exit
+
+6) if u did 5.1, then:
+docker run -v `pwd`:data --rm -it storage_container 
+	django-admin createproject storage_project
+
+sudo chown ir4y:ir4y ./ -R
+
+	python manage.py runserver
+
+docker run -p 8080:8080 -v `pwd`:data --rm -it storage_container
+	python manage.py runserver 0.0.0.0:8080
+
+and smth else, for more look here:
+https://www.youtube.com/watch?v=5LuHkG3fiFY
+
+
+
+https://docs.docker.com/compose/django/
+1) install compose 
+2) mkdir project
+3) cd project
+4) nano Dockerfile
+5) ... 
